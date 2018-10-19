@@ -1,6 +1,7 @@
 // GLOBAL IMPORTS
 import express from 'express';
 import { ApolloServer } from 'apollo-server';
+import './configs';
 
 const app = express(); // if you will use for middleware
 
