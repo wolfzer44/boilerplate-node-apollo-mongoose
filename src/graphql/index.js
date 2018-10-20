@@ -1,7 +1,6 @@
 import * as user from './users';
 import * as post from './posts';
 
-console.log(post.resolver);
 
 import { makeExecutableSchema } from 'apollo-server';
 
