@@ -6,11 +6,10 @@ import './configs';
 const app = express(); // if you will use for middleware
 
 // APPLICATION IMPORTS
-import typeDefs from "./schmas";
-import resolvers from "./resolvers";
-import models from './models';
+import  { default as graphql }  from './graphql'
 
-const server = new ApolloServer({ typeDefs, resolvers, context: models })
+
+const server = new ApolloServer({ schema: graphql.schema,  context: graphql.models })
 
 server.listen().then(({ url }) => {
   console.log(`🚀 Server is ready at ${url}`)
