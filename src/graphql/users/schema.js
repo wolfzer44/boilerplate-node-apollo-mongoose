@@ -3,8 +3,12 @@ export default `
     type User {
         _id: String!
         name: String!
-        posts: [Post]
+        lastName: String!
+        phone_number: String!
+        email: String!
+        activePin: String!
+        isActive: Boolean!
+        conversations: [Conversation]
     }
-
 
 `;

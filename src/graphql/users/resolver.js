@@ -2,7 +2,6 @@ export default {
     
     Query: {
         users: async (root, args, { Users }, info) => {
-            console.log()
             const response = await Users.find()
             return response;
         },
@@ -16,9 +15,14 @@ export default {
     },
 
     User: {
-        posts: async (user, args, { Posts }) => {
-            console.log(user);
-            const response = await Posts.find({ user_id: user._id})
+        conversations: async (user, args, { Conversations }) => {
+        
+            const response = await Conversations.find({
+                $or:[
+                    {'owner_id': user._id},
+                    {'invited_id': user._id}
+                ]
+            })
             return response;
         },
     },

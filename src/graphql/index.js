@@ -1,5 +1,6 @@
 import * as user from './users';
-import * as post from './posts';
+import * as conversation from './conversations';
+import * as message from './messages';
 
 
 import { makeExecutableSchema } from 'apollo-server';
@@ -7,28 +8,61 @@ import { makeExecutableSchema } from 'apollo-server';
 const queryMutations = `
 
     type Query {
-        posts: [Post]
-        post(_id: String!) : Post
+        messages: [Message]
+        message(_id: String!) : Message
+        conversations: [Conversation]
+        conversation(_id: String!) : Conversation
         users: [User]
         user(_id: String!) : User
         
     }
 
     type  Mutation {
-        createPost(title: String!, description: String!, user_id: String!) : Post
-        createUser(name: String! ) : User
+        createConversation(
+            owner_id: String!
+            invited_id: String!
+        ) : Conversation
+
+        createMessage(
+            owner_id: String!
+            conversation_id: String!
+            message: String!
+        ) : Message
+
+        createUser(
+            name: String!
+            lastName: String!
+            phone_number: String!
+            email: String!
+            activePin: String!
+            isActive: Boolean!
+        ) : User
+    }
+
+    type Subscription {
+        newMessage(_id: String!): Message
     }
 `
 
 const schema =  makeExecutableSchema({
-    typeDefs: [post.schema, user.schema, queryMutations],
-    resolvers: [user.resolver, post.resolver],
+    typeDefs: [
+        user.schema, 
+        conversation.schema, 
+        message.schema,
+        queryMutations
+    ],
+    resolvers: [
+        user.resolver, 
+        conversation.resolver,
+        message.resolver
+    ],
 });
 
 export default {
     schema,
     models: {
         Users: user.model,
-        Posts: post.model
+        Conversations: conversation.model,
+        Messages: message.model
     }
 };
