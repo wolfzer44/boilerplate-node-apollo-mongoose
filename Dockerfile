@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:lts-alpine
 RUN mkdir -p /usr/src
 WORKDIR /usr/src
 COPY package.json /usr/src/
