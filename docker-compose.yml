@@ -5,8 +5,11 @@ services:
   server: 
     container_name: "server"
     build: .
-    volumes: 
-      - ./:/usr/src
+    command: npm run dev
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
+
     ports: 
       - 4000:4000
     restart: always
